@@ -5,7 +5,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import TodoList from "./TodoList.js";
+import TodoList from "./components/TodoList.js";
 
 class App extends Component {
   state = {
