@@ -6,6 +6,11 @@ import * as serviceWorker from "./serviceWorker";
 import {
     BrowserRouter
 } from 'react-router-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import todoApp from './reducers/index.js'
+
+const store = createStore(todoApp)
 
 ReactDOM.render(
 <BrowserRouter basename={process.env.PUBLIC_URL}>
