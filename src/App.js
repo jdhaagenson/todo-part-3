@@ -5,7 +5,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import TodoList from "./components/TodoList.js";
+import TodoContainer from "./container/TodoContainer.js";
 
 class App extends Component {
   state = {
@@ -74,7 +74,7 @@ class App extends Component {
           exact
           path="/"
           render={()=>(
-            <TodoList
+            <TodoContainer
             handleToggle={this.handleToggle}
             handleDelete = {this.handleDelete}
             todos={this.state.todos} />
@@ -82,7 +82,7 @@ class App extends Component {
           <Route
             path="/active"
             render={()=>(
-              <TodoList
+              <TodoContainer
               handleToggle={this.handleToggle}
               handleDelete={this.handleDelete}
               todos={this.state.todos.filter(todo=>todo.completed === false)}/>
@@ -90,7 +90,7 @@ class App extends Component {
           <Route
             path="/completed"
             render={()=>(
-              <TodoList
+              <TodoContainer
                 handleToggle={this.handleToggle}
                 handleDelete={this.handleDelete}
                 todos={this.state.todos.filter(todo=>todo.completed === true)}/>

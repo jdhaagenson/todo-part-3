@@ -8,13 +8,19 @@ import {
 } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import todoApp from './reducers/index.js'
+import todoApp from './reducers'
 
-const store = createStore(todoApp)
+let store = createStore(
+    todoApp,
+    window.__REDUX_DEVTOOLS
+)
 
 ReactDOM.render(
+
 <BrowserRouter basename={process.env.PUBLIC_URL}>
-<App />
+    <Provider store={store}>
+        <App />
+    </Provider>,
 </BrowserRouter>,
 document.getElementById("root"));
 
