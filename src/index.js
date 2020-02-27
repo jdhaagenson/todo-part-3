@@ -17,11 +17,11 @@ let store = createStore(
 
 ReactDOM.render(
 
-<BrowserRouter basename={process.env.PUBLIC_URL}>
-    <Provider store={store}>
+<Provider store={store}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <App />
-    </Provider>,
-</BrowserRouter>,
+    </BrowserRouter>,
+</Provider>,
 document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
