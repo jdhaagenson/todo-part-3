@@ -1,6 +1,6 @@
-import todolist from './todolist.js'
+import reducer from './reducer.js'
 import { combineReducers } from 'redux'
 
-const todoApp = combineReducers({ todolist })
+const todoApp = combineReducers({ todolist: reducer })
 
 export default todoApp

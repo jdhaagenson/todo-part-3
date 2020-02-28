@@ -8,7 +8,7 @@ import todosList from '../todos.json';
 // } from '../actions'
 
 const initialState = {todos: todosList, value:""};
-const todolist = (state=initialState, action)=> {
+const reducer = (state=initialState, action)=> {
     switch( action.type ){
         case 'DELETE_TODO':
             const newTodoList = state.todos.filter(
@@ -48,4 +48,4 @@ const todolist = (state=initialState, action)=> {
     }
 }
 
-export default todolist
+export default reducer
