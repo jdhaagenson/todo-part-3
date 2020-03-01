@@ -1,8 +1,8 @@
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
 const TOGGLE_TODO = 'TOGGLE_TODO';
-const CHANGE_TODO = 'CHANGE_TODO';
-const CLEAR_CLICK = 'CLEAR_CLICK';
+// const CHANGE_TODO = 'CHANGE_TODO';
+const CLEAR_COMPLETED_TODOS = 'CLEAR_CLICK';
 
 export const addTodo = (todoTitle)=> {
     const newTodo = {
@@ -24,9 +24,9 @@ export const toggleTodo = (todoIdToToggle) => {
     };
 };
 
-export const clearCompleted =() =>{
+export const clearCompletedTodos =() =>{
     return {
-        type:CLEAR_CLICK
+        type:CLEAR_COMPLETED_TODOS
     }
 }
 
@@ -37,9 +37,9 @@ export const deleteTodo = (todoIdToDelete)=> {
     }
 }
 
-export const changeTodo = (todoToChange) => {
-    return {
-        type : CHANGE_TODO,
-        payload: todoToChange
-    }
-}
+// export const changeTodo = (todoToChange) => {
+//     return {
+//         type : CHANGE_TODO,
+//         payload: todoToChange
+//     }
+// }

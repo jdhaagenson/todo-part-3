@@ -1,13 +1,7 @@
 import todosList from '../todos.json';
-// import {
-//     ADD_TODO,
-//     DELETE_TODO,
-//     CHANGE_TODO,
-//     TOGGLE_TODO,
-//     CLEAR_CLICK
-// } from '../actions'
 
-const initialState = {todos: todosList, value:""};
+
+const initialState = {todos: todosList};
 const reducer = (state=initialState, action)=> {
     switch( action.type ){
         case 'DELETE_TODO':
@@ -35,13 +29,6 @@ const reducer = (state=initialState, action)=> {
             let cleared = state.todos;
             cleared = state.todos.filter(a => !a.completed);
             return {cleared}
-
-        case 'CHANGE_TODO':
-            const val = action.payload
-            return {
-                ...state.todos,
-                value:val
-            }
 
         default:
             return state

@@ -8,19 +8,17 @@ import {
 } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import todoApp from './reducers'
+import reducer from './reducer/reducer.js'
 
-let store = createStore(
-    todoApp,
-)
+let store = createStore(reducer)
 
 ReactDOM.render(
 
-<Provider store={store}>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+<BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Provider store={store}>
         <App />
-    </BrowserRouter>,
-</Provider>,
+    </Provider>,
+</BrowserRouter>,
 document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change

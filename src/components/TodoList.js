@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem.js';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => {
-  return {todos: state.props.todos}
-}
-
 class TodoList extends Component {
   render() {
     return (
@@ -25,6 +21,7 @@ class TodoList extends Component {
     );
   }
 }
-const List = connect(mapStateToProps)(TodoList);
-
-export default List
+const mapStateToProps = state => {
+  return
+}
+export default connect(mapStateToProps)(mapDispatchToProps)(TodoList);

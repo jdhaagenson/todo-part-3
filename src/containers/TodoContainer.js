@@ -3,9 +3,8 @@ import TodoList from '../components/TodoList'
 import {
     toggleTodo,
     addTodo,
-    clearCompleted,
+    clearCompletedTodos,
     deleteTodo,
-    changeTodo
 } from '../actions'
 
 const mapStateToProps = state => {
@@ -18,9 +17,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         handleCreate : () => dispatch( addTodo() ),
-        handleClearClick : () => dispatch( clearCompleted() ),
+        handleClearClick : () => dispatch( clearCompletedTodos() ),
         handleDelete : () => dispatch( deleteTodo() ),
-        handleChange : () => dispatch( changeTodo() ),
         handleToggle : () => dispatch( toggleTodo() ),
     }
 }
