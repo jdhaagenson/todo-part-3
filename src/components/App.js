@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import "./index.css";
-import todosList from "./todos.json";
+import "../index.css";
+import todosList from "../todos.json";
 import {
   Route,
   NavLink
 } from "react-router-dom";
-import TodoContainer from "./containers/TodoContainer.js";
+import TodoList from "./TodoList.js";
+import {connect} from 'react-redux'
+import {
+  addTodo,
+  deleteTodo,
+  toggleTodo,
+  clearCompletedTodos
+} from '../actions'
+
 
 class App extends Component {
   state = {
@@ -20,16 +28,11 @@ class App extends Component {
 
   handleCreate = (event) => {
     if (event.key === 'Enter') {
-      const newTodoList = this.state.todos.slice();
-      newTodoList.push({
-        userId: 1,
-        id: Math.floor(Math.random()*1000000),
-        title: this.state.value,
-        completed: false
-      });
-      this.setState({ todos: newTodoList, value: "" });
+      this.props.addTodo(event.target.value)
+      this.setState({ value: "" });
     }
   };
+
 
   handleChange = (event) => {
     this.setState({value: event.target.value});
@@ -74,23 +77,23 @@ class App extends Component {
           exact
           path="/"
           render={()=>(
-            <TodoContainer
-            handleToggle={this.handleToggle}
-            handleDelete = {this.handleDelete}
-            todos={this.state.todos} />
+            <TodoList
+            handleToggle={this.props.toggleTodo}
+            handleDelete = {this.props.deleteTodo}
+            todos={this.props.todos} />
           )}/>
           <Route
             path="/active"
             render={()=>(
-              <TodoContainer
-              handleToggle={this.handleToggle}
-              handleDelete={this.handleDelete}
+              <TodoList
+              handleToggle={this.props.toggleTodo}
+              handleDelete={this.props.deleteTodo}
               todos={this.state.todos.filter(todo=>todo.completed === false)}/>
             )}/>
           <Route
             path="/completed"
             render={()=>(
-              <TodoContainer
+              <TodoList
                 handleToggle={this.handleToggle}
                 handleDelete={this.handleDelete}
                 todos={this.state.todos.filter(todo=>todo.completed === true)}/>
@@ -126,6 +129,18 @@ class App extends Component {
   }
 }
 
+function mapStateToProps(state){
+  return{
+    todos:state.todos
+  }
+}
+const mapDispatchToProps = {
+  addTodo,
+  deleteTodo,
+  clearCompletedTodos,
+  toggleTodo,
+
+}
 
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
