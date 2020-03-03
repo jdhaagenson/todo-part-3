@@ -1,7 +1,6 @@
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
 const TOGGLE_TODO = 'TOGGLE_TODO';
-// const CHANGE_TODO = 'CHANGE_TODO';
 const CLEAR_COMPLETED_TODOS = 'CLEAR_CLICK';
 
 export const addTodo = (todoTitle)=> {
@@ -37,9 +36,3 @@ export const deleteTodo = (todoIdToDelete)=> {
     }
 }
 
-// export const changeTodo = (todoToChange) => {
-//     return {
-//         type : CHANGE_TODO,
-//         payload: todoToChange
-//     }
-// }
