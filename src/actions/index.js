@@ -1,7 +1,8 @@
+import todos from '../todos.json'
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
 const TOGGLE_TODO = 'TOGGLE_TODO';
-const CLEAR_COMPLETED_TODOS = 'CLEAR_CLICK';
+const CLEAR_COMPLETED_TODOS = 'CLEAR_COMPLETED_TODOS';
 
 export const addTodo = (todoTitle)=> {
     const newTodo = {
@@ -19,7 +20,7 @@ export const addTodo = (todoTitle)=> {
 export const toggleTodo = (todoIdToToggle) => {
     return {
         type: TOGGLE_TODO,
-        payload: todoIdToToggle
+        id: todoIdToToggle
     };
 };
 
@@ -29,10 +30,12 @@ export const clearCompletedTodos =() =>{
     }
 }
 
-export const deleteTodo = (todoIdToDelete)=> {
-    return {
+export const deleteTodo = (event)=> {
+    event.preventDefault()
+    const newTodoList = todos.filter(todo=>todo.title!==event.target.value)
+    return ({
         type: DELETE_TODO,
-        payload: todoIdToDelete
-    }
+        payload: newTodoList
+    })
 }
 

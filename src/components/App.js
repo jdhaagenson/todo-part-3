@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../index.css";
-import todosList from "../todos.json";
 import {
   Route,
   NavLink
@@ -17,14 +16,14 @@ import {
 
 class App extends Component {
   state = {
-    todos: todosList,
-    value: ""
+    value: "",
+    active: this.props.todos.length
   };
-  handleDelete = todoIdToDelete => {
-    const newTodoList = this.state.todos.filter(
-      todo => todo.id !== todoIdToDelete);
-    this.setState({ todos: newTodoList });
-  };
+  // handleDelete = todoIdToDelete => {
+  //   const newTodoList = this.state.todos.filter(
+  //     todo => todo.id !== todoIdToDelete);
+  //   this.setState({ todos: newTodoList });
+  // };
 
   handleCreate = (event) => {
     if (event.key === 'Enter') {
@@ -38,28 +37,7 @@ class App extends Component {
     this.setState({value: event.target.value});
   };
 
-  handleToggle = todoIdToToggle => {
-    // const newTodos = this.state.todos.slice();
-    const newTodoList = this.state.todos.map(todo => {
-      if (todo.id === todoIdToToggle) {
-        const newTodo = {
-          ...todo,
-          completed: !todo.completed
-        }
-        return newTodo;
-      }
-      return todo;
-    });
-    this.setState({todos: newTodoList});
-  };
-
-  handleClearClick = () => {
-    let todos = this.state.todos;
-    todos = todos.filter(a => !a.completed);
-    this.setState({ todos: todos });
-  };
-
-  render() {
+  render(props) {
     return (
       <section className="todoapp">
         <header className="header">
@@ -78,6 +56,7 @@ class App extends Component {
           path="/"
           render={()=>(
             <TodoList
+            id={this.props.todos.id}
             handleToggle={this.props.toggleTodo}
             handleDelete = {this.props.deleteTodo}
             todos={this.props.todos} />
@@ -86,28 +65,23 @@ class App extends Component {
             path="/active"
             render={()=>(
               <TodoList
+              id={this.props.todos.id}
               handleToggle={this.props.toggleTodo}
-              handleDelete={this.props.deleteTodo}
-              todos={this.state.todos.filter(todo=>todo.completed === false)}/>
+              handleDelete={this.deleteTodo}
+              todos={this.props.todos}/>
             )}/>
           <Route
             path="/completed"
             render={()=>(
               <TodoList
-                handleToggle={this.handleToggle}
-                handleDelete={this.handleDelete}
-                todos={this.state.todos.filter(todo=>todo.completed === true)}/>
+                handleDelete={this.props.deleteTodo}
+                handleToggle={this.props.toggleTodo}
+                todos={this.props.todos}/>
             )}/>
         <footer className="footer">
         <span className="todo-count">
           <strong>
-            {this.state.todos.filter(todo => {
-              if (todo.completed === false) {
-                return todo;
-              }
-              return false;
-            }).length
-            }
+            {this.props.todos.filter(incompleteTodo=>incompleteTodo===false).length}
           </strong>{" "}
           item(s) left
         </span>
@@ -122,25 +96,28 @@ class App extends Component {
               <NavLink exact to="/completed"activeClassName="selected">Completed</NavLink>
             </li>
           </ul>
-          <button onClick={this.handleClearClick} className="clear-completed">Clear completed</button>
+          <button onClick={this.props.clearCompletedTodos} className="clear-completed">Clear completed</button>
         </footer>
       </section>
     );
   }
 }
 
-function mapStateToProps(state){
-  return{
-    todos:state.todos
-  }
-}
+// function mapStateToProps(state){
+//   return{
+//     todos:state.todos
+//   }
+// }
 const mapDispatchToProps = {
   addTodo,
   deleteTodo,
   clearCompletedTodos,
-  toggleTodo,
+  toggleTodo
 
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  state=> ({todos:state.todos}),
+  mapDispatchToProps
+  )(App);

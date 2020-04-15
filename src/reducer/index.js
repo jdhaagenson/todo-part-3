@@ -2,19 +2,17 @@ import todosList from '../todos.json';
 
 
 const initialState = {todos: todosList};
-const RootReducer = (state=initialState, action)=> {
+export default function RootReducer (state=initialState, action){
     switch( action.type ){
         case 'DELETE_TODO':
-            const newTodoList = state.todos.filter(
-                todo=> todo.id!==action.payload);
-            return {newTodoList}
+            return {todos:action.payload}
 
         case 'ADD_TODO':
             return {...state, todos:[...state.todos, action.payload]}
 
         case 'TOGGLE_TODO':
-            const newTodo = state.todos.map(todo => {
-                if (todo.id === action.payload){
+            const toggleTodo = state.todos.map(todo => {
+                if (todo.id === action.id){
                     const newTodo = {
                         ...state.todos,
                         completed: !todo.completed
@@ -23,16 +21,15 @@ const RootReducer = (state=initialState, action)=> {
                 }
                 return todo;
             })
-            return {newTodo}
+            return {...state, todos: [...state.todos, toggleTodo]}
 
-        case 'CLEAR_CLICK':
+        case 'CLEAR_COMPLETED_TODOS':
             let cleared = state.todos;
             cleared = state.todos.filter(a => !a.completed);
-            return {cleared}
+            return {...state, todos:[...state.todos, cleared]}
 
         default:
             return state
     }
 }
 
-export default RootReducer

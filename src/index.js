@@ -5,12 +5,19 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import {
     BrowserRouter
-} from 'react-router-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import RootReducer from './reducer'
+} from 'react-router-dom';
+// import { createStore } from 'redux';
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from 'react-redux';
+import RootReducer from './reducer';
+import todosList from "./todos.json";
 
-let store = createStore(RootReducer)
+const store = configureStore({
+    reducer: RootReducer,
+    preloadedState: {todos:todosList},
+    devTools: process.env.NODE_ENV !== 'production'
+    + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+})
 
 ReactDOM.render(
 
