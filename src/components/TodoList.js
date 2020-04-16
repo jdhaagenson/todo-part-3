@@ -13,9 +13,9 @@ const TodoList = props => {
         {props.todos.map(todo => (
           // console.log(todo) &&
           <TodoItem key={todo.id}
-          handleToggle={event => props.handleToggle}
+          toggleTodo={event => props.toggleTodo(todo.id)}
           handleChange={event => props.handleChange}
-          handleDelete = {event => props.handleDelete}
+          deleteTodo = {event => props.deleteTodo(todo.id)}
           title={todo.title}
           completed={todo.completed}
           id={todo.id}
@@ -31,7 +31,6 @@ const mapDispatchToProps = {
   toggleTodo
 }
 export default connect(
-  state => ({todos:state.todos}
-    ), mapDispatchToProps
+  null, mapDispatchToProps
   )(TodoList)
 // export default TodoList

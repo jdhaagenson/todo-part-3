@@ -12,16 +12,16 @@ const TodoItem = props => {
           <input
             className="toggle"
             type="checkbox"
-            onToggle={props.handleToggle}
+            onToggle={props.toggleTodo}
             onChange={props.handleChange}
             checked={props.completed}
-            onClick={props.handleToggle}
+            onClick={(event)=>props.toggleTodo(event, props.id)}
             id={props.id}
 
             />
           <label>{props.title}</label>
           <button className="destroy"
-          onClick={props.handleDelete}/>
+          onClick={(event)=>props.deleteTodo(event, props.id)}/>
           </form>
         </div>
       </li>

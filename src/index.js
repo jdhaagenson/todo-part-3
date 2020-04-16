@@ -9,11 +9,11 @@ import {
 // import { createStore } from 'redux';
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from 'react-redux';
-import RootReducer from './reducer';
+import todosReducer from './reducer';
 import todosList from "./todos.json";
 
 const store = configureStore({
-    reducer: RootReducer,
+    reducer: todosReducer,
     preloadedState: {todos:todosList},
     devTools: process.env.NODE_ENV !== 'production'
     + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

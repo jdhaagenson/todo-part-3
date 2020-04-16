@@ -36,6 +36,9 @@ class App extends Component {
   handleChange = (event) => {
     this.setState({value: event.target.value});
   };
+  handleClearCompleted = (event) => {
+    this.props.clearCompletedTodos()
+  }
 
   render(props) {
     return (
@@ -56,32 +59,24 @@ class App extends Component {
           path="/"
           render={()=>(
             <TodoList
-            id={this.props.todos.id}
-            handleToggle={this.props.toggleTodo}
-            handleDelete = {this.props.deleteTodo}
             todos={this.props.todos} />
           )}/>
           <Route
             path="/active"
             render={()=>(
               <TodoList
-              id={this.props.todos.id}
-              handleToggle={this.props.toggleTodo}
-              handleDelete={this.deleteTodo}
-              todos={this.props.todos}/>
+              todos={this.props.todos.filter(todo=>todo.completed===false)}/>
             )}/>
           <Route
             path="/completed"
             render={()=>(
               <TodoList
-                handleDelete={this.props.deleteTodo}
-                handleToggle={this.props.toggleTodo}
-                todos={this.props.todos}/>
+                todos={this.props.todos.filter(todo=>todo.completed===true)}/>
             )}/>
         <footer className="footer">
         <span className="todo-count">
           <strong>
-            {this.props.todos.filter(incompleteTodo=>incompleteTodo===false).length}
+            {this.props.todos.filter(todo=>!todo.completed).length}
           </strong>{" "}
           item(s) left
         </span>
@@ -96,7 +91,9 @@ class App extends Component {
               <NavLink exact to="/completed"activeClassName="selected">Completed</NavLink>
             </li>
           </ul>
-          <button onClick={this.props.clearCompletedTodos} className="clear-completed">Clear completed</button>
+          <button
+          onClick={this.handleClearCompleted}
+          className="clear-completed">Clear completed</button>
         </footer>
       </section>
     );

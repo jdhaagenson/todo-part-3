@@ -1,4 +1,3 @@
-import todos from '../todos.json'
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
 const TOGGLE_TODO = 'TOGGLE_TODO';
@@ -30,12 +29,10 @@ export const clearCompletedTodos =() =>{
     }
 }
 
-export const deleteTodo = (event)=> {
-    event.preventDefault()
-    const newTodoList = todos.filter(todo=>todo.title!==event.target.value)
+export const deleteTodo = (todoToDelete)=> {
     return ({
         type: DELETE_TODO,
-        payload: newTodoList
+        payload: todoToDelete
     })
 }
 
